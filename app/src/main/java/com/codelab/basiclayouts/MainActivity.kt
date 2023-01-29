@@ -16,14 +16,21 @@
 
 package com.codelab.basiclayouts
 
+import android.graphics.drawable.Icon
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.codelab.basiclayouts.ui.theme.MySootheTheme
@@ -41,6 +48,38 @@ fun SearchBar(
     modifier: Modifier = Modifier
 ) {
     // Implement composable here
+    //Text field give all the functionality like editing text etc..
+    //we can use different modifiers in text field also..
+    TextField(value = "",
+        onValueChange ={}
+        ,
+        //used leading icon to make icon at the starting.
+
+        leadingIcon = {
+            androidx.compose.material.Icon(Icons.Default.Search, contentDescription = null )
+        }
+                ,
+        //placeholder itself may be behave as
+        //leading icon we put Text"content dissription" of icon 
+        //in place holder
+        placeholder = {
+                      Text(stringResource(id = R.string.placeholder_search))
+        },
+        //Adapting background color for this
+        colors = TextFieldDefaults.textFieldColors(
+        //TextFieldDefaults have all the default values
+        //in this case we change or overwrite color of background
+        //eg;- white T shirt is default(come under TextFieldDefaults) and we make it black
+        //we do not change jeans or caps.
+        backgroundColor = MaterialTheme.colors.surface
+        ),
+        //min is used to set minimum height not fixed height
+        modifier = modifier
+            .heightIn(min = 56.dp)
+
+            .fillMaxWidth(1f)
+
+    )
 }
 
 // Step: Align your body - Alignment
@@ -49,6 +88,7 @@ fun AlignYourBodyElement(
     modifier: Modifier = Modifier
 ) {
     // Implement composable here
+    
 }
 
 // Step: Favorite collection card - Material Surface
