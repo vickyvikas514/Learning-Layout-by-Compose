@@ -16,6 +16,7 @@
 
 package com.codelab.basiclayouts
 
+import android.app.Notification.Style
 import android.graphics.drawable.Icon
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -23,15 +24,17 @@ import androidx.activity.compose.setContent
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.heightIn
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -88,15 +91,42 @@ fun SearchBar(
 // Step: Align your body - Alignment
 @Composable
 fun AlignYourBodyElement(
+    //by using DrwableRes we can actually pass any image
+    // to this function from the outside of the composable for eg:- from my phone.
+    @DrawableRes drawble: Int,
+    //same for StringRes
+    @StringRes text:Int,
     modifier: Modifier = Modifier
+
 ) {
     // Implement composable here
-    Column(modifier) {
-        Image(painterResource( id = R.drawable.ab1_inversions) , contentDescription = null )
+    //use column as image and a text are present in coulmn
+    Column(
+        //it alling all the children of column horizontally.
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = modifier) {
+
+        //put a image
+        Image(painterResource( id = drawble) ,
+            contentDescription = null,
+            contentScale = ContentScale.Crop
+            //fix the size
+            //clip modifer help to shapen the image.
+                // by only using a clip it does not become fully circular,
+            // it is cut from up and down. To make it fully circular We Use
+            //image content scale parameter(uper dekh)
+        , modifier = Modifier.size(88.dp).clip(CircleShape)
+        )
 
         Text(
-            stringResource(id = R.string.ab1_inversions
-            )
+            //put the text
+            stringResource(id = text,
+            ),
+            //styling the text
+            style = MaterialTheme.typography.h3,
+            //adding space to the the text from base line
+            // base line is a line on which text is suppose to be placed.
+            modifier = Modifier.paddingFromBaseline(top = 24.dp, bottom = 8.dp)
         )
     }
     
@@ -186,6 +216,9 @@ fun SearchBarPreview() {
 fun AlignYourBodyElementPreview() {
     MySootheTheme {
         AlignYourBodyElement(
+            //it for example
+            R.drawable.ab1_inversions,
+            R.string.ab1_inversions,
             modifier = Modifier.padding(8.dp)
         )
     }
