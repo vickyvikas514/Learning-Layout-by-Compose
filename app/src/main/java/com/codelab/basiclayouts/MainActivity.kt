@@ -115,7 +115,9 @@ fun AlignYourBodyElement(
                 // by only using a clip it does not become fully circular,
             // it is cut from up and down. To make it fully circular We Use
             //image content scale parameter(uper dekh)
-        , modifier = Modifier.size(88.dp).clip(CircleShape)
+        , modifier = Modifier
+                .size(88.dp)
+                .clip(CircleShape)
         )
 
         Text(
@@ -135,9 +137,23 @@ fun AlignYourBodyElement(
 // Step: Favorite collection card - Material Surface
 @Composable
 fun FavoriteCollectionCard(
+    @DrawableRes drawble: Int,
+    @StringRes text: Int,
     modifier: Modifier = Modifier
 ) {
-    // Implement composable here
+    //we use surface because it create seperate surface for image and text so for eample
+    // we can change color of them
+    //like chatai(mat)
+    Surface() {
+        Row() {
+            Image(painterResource(id = drawble),
+                contentDescription = null )
+
+            Text(stringResource(id = text))
+
+        }
+
+    }
 }
 
 // Step: Align your body row - Arrangements
@@ -151,9 +167,10 @@ fun AlignYourBodyRow(
 // Step: Favorite collections grid - LazyGrid
 @Composable
 fun FavoriteCollectionsGrid(
+
     modifier: Modifier = Modifier
 ) {
-    // Implement composable here
+
 }
 
 // Step: Home section - Slot APIs
@@ -229,6 +246,8 @@ fun AlignYourBodyElementPreview() {
 fun FavoriteCollectionCardPreview() {
     MySootheTheme {
         FavoriteCollectionCard(
+            R.drawable.fc2_nature_meditations,
+            R.string.ab2_quick_yoga,
             modifier = Modifier.padding(8.dp)
         )
     }
@@ -237,7 +256,9 @@ fun FavoriteCollectionCardPreview() {
 @Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
 @Composable
 fun FavoriteCollectionsGridPreview() {
-    MySootheTheme { FavoriteCollectionsGrid() }
+    MySootheTheme { FavoriteCollectionsGrid(
+
+    ) }
 }
 
 @Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
