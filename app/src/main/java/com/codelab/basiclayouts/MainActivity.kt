@@ -26,6 +26,8 @@ import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.CornerBasedShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
@@ -137,6 +139,8 @@ fun AlignYourBodyElement(
 // Step: Favorite collection card - Material Surface
 @Composable
 fun FavoriteCollectionCard(
+
+
     @DrawableRes drawble: Int,
     @StringRes text: Int,
     modifier: Modifier = Modifier
@@ -144,10 +148,21 @@ fun FavoriteCollectionCard(
     //we use surface because it create seperate surface for image and text so for eample
     // we can change color of them
     //like chatai(mat)
-    Surface() {
+    Surface(
+        //use shape parameter to bulid and define rounded corners should be small
+        shape = MaterialTheme.shapes.small,
+        modifier = modifier.clip(RoundedCornerShape(2.dp))
+    ,
+    ) {
         Row() {
             Image(painterResource(id = drawble),
-                contentDescription = null )
+                contentDescription = null
+            ,
+                contentScale = ContentScale.Crop
+                ,
+
+                //resize the image
+            modifier = Modifier.size(56.dp))
 
             Text(stringResource(id = text))
 
@@ -247,7 +262,7 @@ fun FavoriteCollectionCardPreview() {
     MySootheTheme {
         FavoriteCollectionCard(
             R.drawable.fc2_nature_meditations,
-            R.string.ab2_quick_yoga,
+            R.string.fc2_nature_meditations,
             modifier = Modifier.padding(8.dp)
         )
     }
