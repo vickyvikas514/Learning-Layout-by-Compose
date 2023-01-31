@@ -31,6 +31,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.materialIcon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -154,7 +155,13 @@ fun FavoriteCollectionCard(
         modifier = modifier.clip(RoundedCornerShape(2.dp))
     ,
     ) {
-        Row() {
+        Row(
+            //vertically aling the body
+            verticalAlignment = Alignment.CenterVertically
+            ,
+            //fixing the width of box.
+            modifier = Modifier.width(192.dp)
+        ) {
             Image(painterResource(id = drawble),
                 contentDescription = null
             ,
@@ -164,7 +171,12 @@ fun FavoriteCollectionCard(
                 //resize the image
             modifier = Modifier.size(56.dp))
 
-            Text(stringResource(id = text))
+            Text(stringResource(id = text)
+                ,
+                style   = MaterialTheme.typography.h3,
+                //simple paddingn from horizontal.
+                modifier = Modifier.padding(horizontal = 16.dp)
+            )
 
         }
 
