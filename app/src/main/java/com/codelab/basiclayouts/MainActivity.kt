@@ -48,6 +48,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.codelab.basiclayouts.ui.theme.MySootheTheme
+import java.util.*
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -125,7 +126,7 @@ fun AlignYourBodyElement(
             //image content scale parameter(uper dekh)
         , modifier = Modifier
                 .size(88.dp)
-                    //to create shape of circle
+                //to create shape of circle
                 .clip(CircleShape)
         )
 
@@ -236,15 +237,39 @@ fun FavoriteCollectionsGrid(
 
 // Step: Home section - Slot APIs
 @Composable
+//adding title to different componenets
 fun HomeSection(
-    modifier: Modifier = Modifier
+    //we provide title to each element
+    //sach batao tho zyada nhi pata title ka
+    @StringRes title:Int,
+    modifier: Modifier = Modifier,
+    //we use anykind of composable elements
+    content: @Composable () -> Unit
 ) {
-    // Implement composable here
+    // we use slot Api which create slots in our UI.
+    //for example search bar is a example of this .
+    //we fill the slots of icon and text in search bar.
+
+    //we use Column as title and composable element are vertical to each other.
+    Column(modifier ) {
+        //title is upper case and provoded by calling function
+        Text(stringResource(id =  title).uppercase(Locale.getDefault())
+        ,
+        style = MaterialTheme.typography.h2,
+            modifier = Modifier.paddingFromBaseline(top = 40.dp, bottom = 8.dp)
+                .padding(horizontal = 16.dp)
+
+        )
+
+        content()
+    }
+
 }
 
 // Step: Home screen - Scrolling
 @Composable
-fun HomeScreen(modifier: Modifier = Modifier) {
+fun HomeScreen(
+    ) {
     // Implement composable here
 }
 
@@ -331,7 +356,12 @@ fun AlignYourBodyRowPreview() {
 @Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
 @Composable
 fun HomeSectionPreview() {
-    MySootheTheme { HomeSection() }
+    MySootheTheme { HomeSection(
+        R.string.align_your_body
+       //we dont need to pass any modifier
+    ){
+        AlignYourBodyRow()
+    } }
 }
 
 @Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
