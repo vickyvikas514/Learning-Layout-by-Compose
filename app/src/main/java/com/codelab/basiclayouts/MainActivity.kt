@@ -26,6 +26,9 @@ import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.CornerBasedShape
@@ -122,6 +125,7 @@ fun AlignYourBodyElement(
             //image content scale parameter(uper dekh)
         , modifier = Modifier
                 .size(88.dp)
+                    //to create shape of circle
                 .clip(CircleShape)
         )
 
@@ -212,6 +216,21 @@ fun FavoriteCollectionsGrid(
 
     modifier: Modifier = Modifier
 ) {
+    //we use LazyHorizontalGrid to impplement it .
+    //GridCell defines the number of rows in grid .
+    //if we choose GridCell.Adaptive then it adapts according to height.
+    LazyHorizontalGrid(rows = GridCells.Fixed(2),
+        //to control height
+    modifier = modifier.height(120.dp),
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 6.dp)
+
+    ){
+        items(favoriteCollectionsData){
+            item -> FavoriteCollectionCard(drawble = item.drawable, text = item.text )
+        }
+    }
 
 }
 
