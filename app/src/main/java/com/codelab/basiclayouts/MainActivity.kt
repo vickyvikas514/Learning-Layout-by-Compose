@@ -25,6 +25,8 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.CornerBasedShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -186,9 +188,22 @@ fun FavoriteCollectionCard(
 // Step: Align your body row - Arrangements
 @Composable
 fun AlignYourBodyRow(
+
     modifier: Modifier = Modifier
 ) {
-    // Implement composable here
+    //made a scrollable row view.
+    LazyRow(
+        //it create a 8dp gap between each component horizontally.
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        //content padding adds a extra gap in starting and end of scrollable list
+        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 5.dp),
+        modifier = modifier){
+        //allingyourbodydata is a mapping of allingyourbody element's image to text so we use item to call .
+        //move your cursor on alignYourBodyData to see.
+        items(alignYourBodyData){
+            item -> AlignYourBodyElement(drawble = item.drawable, text =item.text )
+        }
+    }
 }
 
 // Step: Favorite collections grid - LazyGrid
