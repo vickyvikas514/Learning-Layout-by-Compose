@@ -16,6 +16,7 @@
 
 package com.codelab.basiclayouts
 
+import android.annotation.SuppressLint
 import android.app.Notification.Style
 import android.graphics.drawable.Icon
 import android.os.Bundle
@@ -50,6 +51,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.codelab.basiclayouts.ui.theme.MySootheTheme
@@ -323,10 +325,21 @@ private fun SootheBottomNavigation(modifier: Modifier = Modifier) {
 }
 
 // Step: MySoothe App - Scaffold
-@Composable
-fun MySootheApp() {
-    // Implement composable here
-}
+
+
+    // Scaffold:-
+    //It gives you a top level configurable composable 
+// that contains slot for other various materials
+    @Composable
+    fun MySootheApp() {
+        MySootheTheme {
+            Scaffold(
+                bottomBar = { SootheBottomNavigation() }
+            ) { padding ->
+                HomeScreen(Modifier.padding(padding))
+            }
+        }
+    }
 
 private val alignYourBodyData = listOf(
     R.drawable.ab1_inversions to R.string.ab1_inversions,
